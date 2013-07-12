@@ -44,6 +44,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CombinationalCircuitForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CombinationalCircuitForm.Designer.cs">
+      <DependentUpon>CombinationalCircuitForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="ModeSelectionForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -52,6 +58,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="CombinationalCircuitForm.resx">
+      <DependentUpon>CombinationalCircuitForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ModeSelectionForm.resx">
       <DependentUpon>ModeSelectionForm.cs</DependentUpon>
     </EmbeddedResource>

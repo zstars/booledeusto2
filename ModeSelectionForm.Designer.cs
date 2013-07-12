@@ -45,6 +45,7 @@
             resources.ApplyResources(this.ccButton, "ccButton");
             this.ccButton.Name = "ccButton";
             this.ccButton.UseVisualStyleBackColor = true;
+            this.ccButton.Click += new System.EventHandler(this.ccButton_Click);
             // 
             // fsmButton
             // 
@@ -90,6 +91,7 @@
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.Control;
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.fsmButton);
             this.Controls.Add(this.pictureBox1);

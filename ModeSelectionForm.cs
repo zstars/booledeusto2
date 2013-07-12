@@ -40,5 +40,12 @@ namespace BooleDeustoTwo
         {
             MessageBox.Show("BooleDeusto2 Prototype v0.1");
         }
+
+        private void ccButton_Click(object sender, EventArgs e)
+        {
+            var form = new CombinationalCircuitForm();
+            form.Show(null);
+            this.Hide(); // Find which is the proper way to do this
+        }
     }
 }
