@@ -88,14 +88,14 @@ namespace BooleDeustoTwo
         }
 
         /// <summary>
-        /// Sets the ID of every single output. Outputs are identified by a number,
-        /// starting from 1.
+        /// Sets the ID of every single output. Outputs are identified by 'F' plus a number,
+        /// starting from F1.
         /// </summary>
         private void NameOutputs()
         {
             int nextNum = 1;
             for (int i = 0; i < outputsGrid.Rows.Count; i++)
-                outputsGrid.Rows[i].HeaderCell.Value = (nextNum++).ToString();
+                outputsGrid.Rows[i].HeaderCell.Value = "F" + (nextNum++).ToString();
         }
 
         private void RemoveRows(DataGridView grid, int num)
