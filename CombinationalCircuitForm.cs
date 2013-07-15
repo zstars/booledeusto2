@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace BooleDeustoTwo
 {
     public partial class CombinationalCircuitForm : Form
@@ -22,11 +23,52 @@ namespace BooleDeustoTwo
             Application.Exit();
         }
 
+        /// <summary>
+        /// Saves the system to a file.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void saveButton_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Function not yet supported");
+            dynamic sys = new Dictionary<string, object>();
+            sys["name"] = nameBox.Text;
+
+            var inputs = new List<string>();
+            foreach(DataGridViewRow row in inputsGrid.Rows) 
+            {
+                string name;
+                var val = row.Cells[0].Value;
+                if (val != null)
+                    name = row.Cells[0].Value.ToString();
+                else
+                    name = "";
+                inputs.Add(name);
+            }
+
+            var outputs = new List<string>();
+            foreach (DataGridViewRow row in outputsGrid.Rows)
+            {
+                string name;
+                var val = row.Cells[0].Value;
+                if (val != null)
+                    name = row.Cells[0].Value.ToString();
+                else
+                    name = "";
+                outputs.Add(name);
+            }
+
+            sys["inputs"] = inputs;
+            sys["outputs"] = outputs;
+
+            string json = SimpleJson.SerializeObject(sys);
+            MessageBox.Show(json);
         }
 
+        /// <summary>
+        /// Loads the system from a file.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void loadButton_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Function not yet supported");

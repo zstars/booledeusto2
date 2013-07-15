@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.nameBox = new System.Windows.Forms.TextBox();
             this.tabs = new System.Windows.Forms.TabControl();
             this.test = new System.Windows.Forms.Button();
             this.loadButton = new System.Windows.Forms.Button();
@@ -63,12 +63,12 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Name:";
             // 
-            // textBox1
+            // nameBox
             // 
-            this.textBox1.Location = new System.Drawing.Point(55, 12);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(269, 20);
-            this.textBox1.TabIndex = 1;
+            this.nameBox.Location = new System.Drawing.Point(55, 12);
+            this.nameBox.Name = "nameBox";
+            this.nameBox.Size = new System.Drawing.Size(269, 20);
+            this.nameBox.TabIndex = 1;
             // 
             // tabs
             // 
@@ -241,7 +241,7 @@
             this.Controls.Add(this.saveButton);
             this.Controls.Add(this.loadButton);
             this.Controls.Add(this.tabs);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.nameBox);
             this.Controls.Add(this.label1);
             this.Name = "CombinationalCircuitForm";
             this.Text = "New combinational circuit";
@@ -262,7 +262,7 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox nameBox;
         private System.Windows.Forms.TabControl tabs;
         private System.Windows.Forms.Button test;
         private System.Windows.Forms.Button loadButton;
