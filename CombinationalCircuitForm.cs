@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,53 +26,84 @@ namespace BooleDeustoTwo
 
         /// <summary>
         /// Saves the system to a file.
+        /// BooleDeusto2 files end in bd2, and are JSON-based.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void saveButton_Click(object sender, EventArgs e)
         {
-            dynamic sys = new Dictionary<string, object>();
-            sys["name"] = nameBox.Text;
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "BooleDeusto2 Files (*.bd2)|*.bd2";
+            sfd.ShowDialog();
 
-            var inputs = new List<string>();
-            foreach(DataGridViewRow row in inputsGrid.Rows) 
+            string file = sfd.FileName;
+            if (file != null && file.Length > 0)
             {
-                string name;
-                var val = row.Cells[0].Value;
-                if (val != null)
-                    name = row.Cells[0].Value.ToString();
-                else
-                    name = "";
-                inputs.Add(name);
+                dynamic sys = new Dictionary<string, object>();
+                sys["name"] = nameBox.Text;
+
+                var inputs = new List<string>();
+                foreach (DataGridViewRow row in inputsGrid.Rows)
+                {
+                    string name;
+                    var val = row.Cells[0].Value;
+                    if (val != null)
+                        name = row.Cells[0].Value.ToString();
+                    else
+                        name = "";
+                    inputs.Add(name);
+                }
+
+                var outputs = new List<string>();
+                foreach (DataGridViewRow row in outputsGrid.Rows)
+                {
+                    string name;
+                    var val = row.Cells[0].Value;
+                    if (val != null)
+                        name = row.Cells[0].Value.ToString();
+                    else
+                        name = "";
+                    outputs.Add(name);
+                }
+
+                sys["inputs"] = inputs;
+                sys["outputs"] = outputs;
+
+                string json = SimpleJson.SerializeObject(sys);
+
+                File.WriteAllText(file, json);
             }
-
-            var outputs = new List<string>();
-            foreach (DataGridViewRow row in outputsGrid.Rows)
-            {
-                string name;
-                var val = row.Cells[0].Value;
-                if (val != null)
-                    name = row.Cells[0].Value.ToString();
-                else
-                    name = "";
-                outputs.Add(name);
-            }
-
-            sys["inputs"] = inputs;
-            sys["outputs"] = outputs;
-
-            string json = SimpleJson.SerializeObject(sys);
-            MessageBox.Show(json);
         }
 
         /// <summary>
         /// Loads the system from a file.
+        /// BooleDeusto2 files are JSON-based.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void loadButton_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Function not yet supported");
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "BooleDeusto2 Files (*.bd2)|*.bd2";
+            ofd.ShowDialog();
+
+            string file = ofd.FileName;
+            if (file == null || file.Length == 0)
+                return;
+
+            string json = File.ReadAllText(file);
+
+            dynamic sys = SimpleJson.DeserializeObject(json);
+
+            this.nameBox.Text = sys["name"];
+
+            inputsGrid.Rows.Clear();
+            foreach (var input in sys["inputs"])
+                inputsGrid.Rows.Add(input);
+
+            outputsGrid.Rows.Clear();
+            foreach (var output in sys["outputs"])
+                outputsGrid.Rows.Add(output);
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
