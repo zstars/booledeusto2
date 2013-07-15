@@ -39,17 +39,19 @@
             this.operationsTab = new System.Windows.Forms.TabPage();
             this.codeTab = new System.Windows.Forms.TabPage();
             this.label2 = new System.Windows.Forms.Label();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
+            this.inputsNumber = new System.Windows.Forms.NumericUpDown();
+            this.outputsNumber = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.idColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.inputsGrid = new System.Windows.Forms.DataGridView();
             this.nameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.outputsGrid = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabs.SuspendLayout();
             this.systemPropertiesTab.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.inputsNumber)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.outputsNumber)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.inputsGrid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.outputsGrid)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -81,7 +83,7 @@
             // 
             // test
             // 
-            this.test.Location = new System.Drawing.Point(513, 195);
+            this.test.Location = new System.Drawing.Point(188, 12);
             this.test.Name = "test";
             this.test.Size = new System.Drawing.Size(75, 23);
             this.test.TabIndex = 3;
@@ -121,11 +123,12 @@
             // 
             // systemPropertiesTab
             // 
-            this.systemPropertiesTab.Controls.Add(this.dataGridView1);
-            this.systemPropertiesTab.Controls.Add(this.numericUpDown2);
+            this.systemPropertiesTab.Controls.Add(this.outputsGrid);
+            this.systemPropertiesTab.Controls.Add(this.inputsGrid);
+            this.systemPropertiesTab.Controls.Add(this.outputsNumber);
             this.systemPropertiesTab.Controls.Add(this.label3);
             this.systemPropertiesTab.Controls.Add(this.test);
-            this.systemPropertiesTab.Controls.Add(this.numericUpDown1);
+            this.systemPropertiesTab.Controls.Add(this.inputsNumber);
             this.systemPropertiesTab.Controls.Add(this.label2);
             this.systemPropertiesTab.Location = new System.Drawing.Point(4, 22);
             this.systemPropertiesTab.Name = "systemPropertiesTab";
@@ -133,6 +136,7 @@
             this.systemPropertiesTab.TabIndex = 0;
             this.systemPropertiesTab.Text = "System Properties";
             this.systemPropertiesTab.UseVisualStyleBackColor = true;
+            this.systemPropertiesTab.Click += new System.EventHandler(this.systemPropertiesTab_Click);
             // 
             // operationsTab
             // 
@@ -162,19 +166,21 @@
             this.label2.TabIndex = 7;
             this.label2.Text = "# of input lines:";
             // 
-            // numericUpDown1
+            // inputsNumber
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(100, 18);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(61, 20);
-            this.numericUpDown1.TabIndex = 9;
+            this.inputsNumber.Location = new System.Drawing.Point(100, 18);
+            this.inputsNumber.Name = "inputsNumber";
+            this.inputsNumber.Size = new System.Drawing.Size(61, 20);
+            this.inputsNumber.TabIndex = 9;
+            this.inputsNumber.ValueChanged += new System.EventHandler(this.onInputsNumberChanged);
             // 
-            // numericUpDown2
+            // outputsNumber
             // 
-            this.numericUpDown2.Location = new System.Drawing.Point(612, 20);
-            this.numericUpDown2.Name = "numericUpDown2";
-            this.numericUpDown2.Size = new System.Drawing.Size(61, 20);
-            this.numericUpDown2.TabIndex = 11;
+            this.outputsNumber.Location = new System.Drawing.Point(612, 20);
+            this.outputsNumber.Name = "outputsNumber";
+            this.outputsNumber.Size = new System.Drawing.Size(61, 20);
+            this.outputsNumber.TabIndex = 11;
+            this.outputsNumber.ValueChanged += new System.EventHandler(this.onOutputsNumberChanged);
             // 
             // label3
             // 
@@ -185,28 +191,46 @@
             this.label3.TabIndex = 10;
             this.label3.Text = "# of output lines:";
             // 
-            // dataGridView1
+            // inputsGrid
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.idColumn,
+            this.inputsGrid.AllowUserToAddRows = false;
+            this.inputsGrid.AllowUserToDeleteRows = false;
+            this.inputsGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.inputsGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.nameColumn});
-            this.dataGridView1.Location = new System.Drawing.Point(18, 64);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(233, 410);
-            this.dataGridView1.TabIndex = 12;
-            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
-            // 
-            // idColumn
-            // 
-            this.idColumn.HeaderText = "Id";
-            this.idColumn.Name = "idColumn";
-            this.idColumn.ReadOnly = true;
+            this.inputsGrid.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.inputsGrid.Location = new System.Drawing.Point(18, 64);
+            this.inputsGrid.Name = "inputsGrid";
+            this.inputsGrid.RowHeadersWidth = 55;
+            this.inputsGrid.Size = new System.Drawing.Size(259, 410);
+            this.inputsGrid.TabIndex = 12;
+            this.inputsGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // nameColumn
             // 
             this.nameColumn.HeaderText = "Name";
             this.nameColumn.Name = "nameColumn";
+            this.nameColumn.Width = 200;
+            // 
+            // outputsGrid
+            // 
+            this.outputsGrid.AllowUserToAddRows = false;
+            this.outputsGrid.AllowUserToDeleteRows = false;
+            this.outputsGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.outputsGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn1});
+            this.outputsGrid.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.outputsGrid.Location = new System.Drawing.Point(449, 64);
+            this.outputsGrid.Name = "outputsGrid";
+            this.outputsGrid.RowHeadersWidth = 55;
+            this.outputsGrid.Size = new System.Drawing.Size(259, 410);
+            this.outputsGrid.TabIndex = 13;
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.HeaderText = "Name";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.Width = 200;
             // 
             // CombinationalCircuitForm
             // 
@@ -221,12 +245,15 @@
             this.Controls.Add(this.label1);
             this.Name = "CombinationalCircuitForm";
             this.Text = "New combinational circuit";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.onFormClosed);
+            this.Load += new System.EventHandler(this.onFormLoad);
             this.tabs.ResumeLayout(false);
             this.systemPropertiesTab.ResumeLayout(false);
             this.systemPropertiesTab.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.inputsNumber)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.outputsNumber)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.inputsGrid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.outputsGrid)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -242,14 +269,15 @@
         private System.Windows.Forms.Button saveButton;
         private System.Windows.Forms.Button exitButton;
         private System.Windows.Forms.TabPage systemPropertiesTab;
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.NumericUpDown numericUpDown2;
+        private System.Windows.Forms.DataGridView inputsGrid;
+        private System.Windows.Forms.NumericUpDown outputsNumber;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.NumericUpDown inputsNumber;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TabPage operationsTab;
         private System.Windows.Forms.TabPage codeTab;
-        private System.Windows.Forms.DataGridViewTextBoxColumn idColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn nameColumn;
+        private System.Windows.Forms.DataGridView outputsGrid;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
     }
 }
