@@ -33,9 +33,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.onesButton = new System.Windows.Forms.Button();
-            this.zerosButton = new System.Windows.Forms.Button();
             this.anyButton = new System.Windows.Forms.Button();
+            this.zerosButton = new System.Windows.Forms.Button();
+            this.onesButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.inputsGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.outputsGrid)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -45,6 +45,9 @@
             // 
             this.inputsGrid.AllowUserToAddRows = false;
             this.inputsGrid.AllowUserToDeleteRows = false;
+            this.inputsGrid.AllowUserToResizeColumns = false;
+            this.inputsGrid.AllowUserToResizeRows = false;
+            this.inputsGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.inputsGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.inputsGrid.Location = new System.Drawing.Point(12, 121);
             this.inputsGrid.Name = "inputsGrid";
@@ -93,14 +96,14 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Fill outputs table";
             // 
-            // onesButton
+            // anyButton
             // 
-            this.onesButton.Location = new System.Drawing.Point(410, 28);
-            this.onesButton.Name = "onesButton";
-            this.onesButton.Size = new System.Drawing.Size(75, 23);
-            this.onesButton.TabIndex = 0;
-            this.onesButton.Text = "Ones";
-            this.onesButton.UseVisualStyleBackColor = true;
+            this.anyButton.Location = new System.Drawing.Point(6, 28);
+            this.anyButton.Name = "anyButton";
+            this.anyButton.Size = new System.Drawing.Size(75, 23);
+            this.anyButton.TabIndex = 2;
+            this.anyButton.Text = "Any (X)";
+            this.anyButton.UseVisualStyleBackColor = true;
             // 
             // zerosButton
             // 
@@ -111,16 +114,16 @@
             this.zerosButton.Text = "Zeros";
             this.zerosButton.UseVisualStyleBackColor = true;
             // 
-            // anyButton
+            // onesButton
             // 
-            this.anyButton.Location = new System.Drawing.Point(6, 28);
-            this.anyButton.Name = "anyButton";
-            this.anyButton.Size = new System.Drawing.Size(75, 23);
-            this.anyButton.TabIndex = 2;
-            this.anyButton.Text = "Any (X)";
-            this.anyButton.UseVisualStyleBackColor = true;
+            this.onesButton.Location = new System.Drawing.Point(410, 28);
+            this.onesButton.Name = "onesButton";
+            this.onesButton.Size = new System.Drawing.Size(75, 23);
+            this.onesButton.TabIndex = 0;
+            this.onesButton.Text = "Ones";
+            this.onesButton.UseVisualStyleBackColor = true;
             // 
-            // StandardTruthTableForm
+            // CompleteTruthTableForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -131,8 +134,9 @@
             this.Controls.Add(this.outputsGrid);
             this.Controls.Add(this.inputsGrid);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Name = "StandardTruthTableForm";
+            this.Name = "CompleteTruthTableForm";
             this.Text = "Complete Truth Table";
+            this.Load += new System.EventHandler(this.CompleteTruthTableForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.inputsGrid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.outputsGrid)).EndInit();
             this.groupBox1.ResumeLayout(false);

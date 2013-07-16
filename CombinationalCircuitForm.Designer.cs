@@ -33,9 +33,7 @@
             this.tabs = new System.Windows.Forms.TabControl();
             this.systemPropertiesTab = new System.Windows.Forms.TabPage();
             this.outputsGrid = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.inputsGrid = new System.Windows.Forms.DataGridView();
-            this.nameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.outputsNumber = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
             this.test = new System.Windows.Forms.Button();
@@ -47,6 +45,8 @@
             this.saveButton = new System.Windows.Forms.Button();
             this.exitButton = new System.Windows.Forms.Button();
             this.completeTruthTableButton = new System.Windows.Forms.Button();
+            this.nameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabs.SuspendLayout();
             this.systemPropertiesTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.outputsGrid)).BeginInit();
@@ -114,12 +114,6 @@
             this.outputsGrid.Size = new System.Drawing.Size(259, 410);
             this.outputsGrid.TabIndex = 13;
             // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.HeaderText = "Name";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.Width = 200;
-            // 
             // inputsGrid
             // 
             this.inputsGrid.AllowUserToAddRows = false;
@@ -134,12 +128,6 @@
             this.inputsGrid.Size = new System.Drawing.Size(259, 410);
             this.inputsGrid.TabIndex = 12;
             this.inputsGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
-            // 
-            // nameColumn
-            // 
-            this.nameColumn.HeaderText = "Name";
-            this.nameColumn.Name = "nameColumn";
-            this.nameColumn.Width = 200;
             // 
             // outputsNumber
             // 
@@ -245,6 +233,20 @@
             this.completeTruthTableButton.UseVisualStyleBackColor = true;
             this.completeTruthTableButton.Click += new System.EventHandler(this.completeTruthTableButton_Click);
             // 
+            // nameColumn
+            // 
+            this.nameColumn.HeaderText = "Name";
+            this.nameColumn.Name = "nameColumn";
+            this.nameColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.nameColumn.Width = 200;
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.HeaderText = "Name";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dataGridViewTextBoxColumn1.Width = 200;
+            // 
             // CombinationalCircuitForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -291,9 +293,9 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TabPage operationsTab;
         private System.Windows.Forms.TabPage codeTab;
-        private System.Windows.Forms.DataGridViewTextBoxColumn nameColumn;
         private System.Windows.Forms.DataGridView outputsGrid;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.Button completeTruthTableButton;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nameColumn;
     }
 }

@@ -32,7 +32,8 @@ namespace BooleDeustoTwo
 
             foreach (var input in sys["inputs"])
             {
-                this.inputsGrid.Columns.Add(input, input);
+                int col = this.inputsGrid.Columns.Add(input, input);
+                this.inputsGrid.Columns[col].SortMode = DataGridViewColumnSortMode.NotSortable;
             }
 
             int numrows = (int)Math.Pow(2, numcols);
@@ -51,6 +52,11 @@ namespace BooleDeustoTwo
 
                 this.inputsGrid.Rows.Add(rowvals);
             }
+
+        }
+
+        private void CompleteTruthTableForm_Load(object sender, EventArgs e)
+        {
 
         }
     }
