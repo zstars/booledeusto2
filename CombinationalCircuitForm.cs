@@ -110,6 +110,9 @@ namespace BooleDeustoTwo
             outputsGrid.Rows.Clear();
             foreach (var output in sys["outputs"])
                 outputsGrid.Rows.Add(output);
+
+            outputsNumber.Value = sys["outputs"].Count;
+            inputsNumber.Value = sys["inputs"].Count;
         }
 
         /// <summary>
