@@ -217,7 +217,7 @@ namespace BooleDeustoTwo
 
         private void onFormLoad(object sender, EventArgs e)
         {
-            
+            this.nameBox.Text = "Unnamed";
         }
 
         private void completeTruthTableButton_Click(object sender, EventArgs e)
