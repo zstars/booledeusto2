@@ -188,5 +188,11 @@ namespace BooleDeustoTwo
             
         }
 
+        private void completeTruthTableButton_Click(object sender, EventArgs e)
+        {
+            CompleteTruthTableForm ttf = new CompleteTruthTableForm();
+            ttf.ShowDialog();
+        }
+
     }
 }
