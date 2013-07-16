@@ -24,6 +24,52 @@ namespace BooleDeustoTwo
             Application.Exit();
         }
 
+
+        /// <summary>
+        /// Serializes the system to a dynamic object which can be directly
+        /// serialized into JSON.
+        /// </summary>
+        /// <returns>Dynamic object with data to describe the system</returns>
+        private dynamic SerializeSystem()
+        {
+            dynamic sys = new Dictionary<string, object>();
+            sys["name"] = nameBox.Text;
+
+            var inputs = new List<string>();
+            int i = 0;
+            foreach (DataGridViewRow row in inputsGrid.Rows)
+            {
+                string name;
+                var val = row.Cells[0].Value;
+                if (val != null)
+                    name = row.Cells[0].Value.ToString();
+                else
+                    name = ((char)('A' + i)).ToString();
+
+                inputs.Add(name);
+                i++;
+            }
+
+            var outputs = new List<string>();
+            i = 1;
+            foreach (DataGridViewRow row in outputsGrid.Rows)
+            {
+                string name;
+                var val = row.Cells[0].Value;
+                if (val != null)
+                    name = row.Cells[0].Value.ToString();
+                else
+                    name = "F" + i.ToString();
+                outputs.Add(name);
+                i++;
+            }
+
+            sys["inputs"] = inputs;
+            sys["outputs"] = outputs;
+
+            return sys;
+        }
+
         /// <summary>
         /// Saves the system to a file.
         /// BooleDeusto2 files end in bd2, and are JSON-based.
@@ -39,40 +85,31 @@ namespace BooleDeustoTwo
             string file = sfd.FileName;
             if (file != null && file.Length > 0)
             {
-                dynamic sys = new Dictionary<string, object>();
-                sys["name"] = nameBox.Text;
-
-                var inputs = new List<string>();
-                foreach (DataGridViewRow row in inputsGrid.Rows)
-                {
-                    string name;
-                    var val = row.Cells[0].Value;
-                    if (val != null)
-                        name = row.Cells[0].Value.ToString();
-                    else
-                        name = "";
-                    inputs.Add(name);
-                }
-
-                var outputs = new List<string>();
-                foreach (DataGridViewRow row in outputsGrid.Rows)
-                {
-                    string name;
-                    var val = row.Cells[0].Value;
-                    if (val != null)
-                        name = row.Cells[0].Value.ToString();
-                    else
-                        name = "";
-                    outputs.Add(name);
-                }
-
-                sys["inputs"] = inputs;
-                sys["outputs"] = outputs;
+                dynamic sys = SerializeSystem();
 
                 string json = SimpleJson.SerializeObject(sys);
 
                 File.WriteAllText(file, json);
             }
+        }
+
+
+        /// <summary>
+        /// Deserializes from a dynamic object describing the system.
+        /// This method is analogue to SerializeSystem.
+        /// </summary>
+        /// <param name="sys">Dynamic object to extract the data from.</param>
+        private void DeserializeSystem(dynamic sys)
+        {
+            this.nameBox.Text = sys["name"];
+
+            inputsGrid.Rows.Clear();
+            foreach (var input in sys["inputs"])
+                inputsGrid.Rows.Add(input);
+
+            outputsGrid.Rows.Clear();
+            foreach (var output in sys["outputs"])
+                outputsGrid.Rows.Add(output);
         }
 
         /// <summary>
@@ -95,15 +132,7 @@ namespace BooleDeustoTwo
 
             dynamic sys = SimpleJson.DeserializeObject(json);
 
-            this.nameBox.Text = sys["name"];
-
-            inputsGrid.Rows.Clear();
-            foreach (var input in sys["inputs"])
-                inputsGrid.Rows.Add(input);
-
-            outputsGrid.Rows.Clear();
-            foreach (var output in sys["outputs"])
-                outputsGrid.Rows.Add(output);
+            DeserializeSystem(sys);
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -191,6 +220,17 @@ namespace BooleDeustoTwo
         private void completeTruthTableButton_Click(object sender, EventArgs e)
         {
             CompleteTruthTableForm ttf = new CompleteTruthTableForm();
+
+            dynamic sys = SerializeSystem();
+
+            if (sys["inputs"].Count == 0)
+            {
+                MessageBox.Show("System has not been defined yet");
+                return;
+            }
+
+            ttf.LoadSystem(sys);
+
             ttf.ShowDialog();
         }
 

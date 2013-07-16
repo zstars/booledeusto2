@@ -47,5 +47,7 @@ namespace BooleDeustoTwo
             form.Show(null);
             this.Hide(); // Find which is the proper way to do this
         }
+
+
     }
 }

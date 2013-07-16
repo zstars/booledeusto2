@@ -256,6 +256,7 @@
             this.Controls.Add(this.tabs);
             this.Controls.Add(this.nameBox);
             this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "CombinationalCircuitForm";
             this.Text = "New combinational circuit";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.onFormClosed);
