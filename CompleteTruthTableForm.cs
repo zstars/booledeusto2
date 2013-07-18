@@ -69,6 +69,15 @@ namespace BooleDeustoTwo
             }
 
             this.outputsGrid.Rows.Add(numrows);
+
+            // Initialize every cell
+            foreach (DataGridViewRow row in this.outputsGrid.Rows)
+            {
+                foreach (DataGridViewCell cell in row.Cells)
+                {
+                    cell.Value = "";
+                }
+            }
         }
 
         private void CompleteTruthTableForm_Load(object sender, EventArgs e)
@@ -120,6 +129,33 @@ namespace BooleDeustoTwo
                 {
                     cell.Value = "";
                 }
+            }
+        }
+
+        private void onCellClicked(object sender, DataGridViewCellEventArgs e)
+        {
+            // Code here has been moved to onCellMouseUp. Otherwise, if the user clicked
+            // two fast, then it would count as a double click and only one click
+            // event would be fired.
+        }
+
+        private void onCellMouseUp(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            DataGridViewCell cell = this.outputsGrid[e.ColumnIndex, e.RowIndex];
+            switch (cell.Value.ToString())
+            {
+                case "":
+                    cell.Value = "X";
+                    break;
+                case "X":
+                    cell.Value = "1";
+                    break;
+                case "1":
+                    cell.Value = "0";
+                    break;
+                case "0":
+                    cell.Value = "X";
+                    break;
             }
         }
     }

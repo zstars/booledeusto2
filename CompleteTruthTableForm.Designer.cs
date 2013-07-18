@@ -69,6 +69,8 @@
             this.outputsGrid.ReadOnly = true;
             this.outputsGrid.Size = new System.Drawing.Size(491, 483);
             this.outputsGrid.TabIndex = 1;
+            this.outputsGrid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.onCellClicked);
+            this.outputsGrid.CellMouseUp += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.onCellMouseUp);
             // 
             // label1
             // 
