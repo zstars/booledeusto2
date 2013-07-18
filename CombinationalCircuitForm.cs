@@ -14,6 +14,24 @@ namespace BooleDeustoTwo
 {
     public partial class CombinationalCircuitForm : Form
     {
+
+        /// <summary>
+        /// This property is meant to hold the current full digital system.
+        /// The system it holds is "full" in the sense that it is well-defined
+        /// and could hence, theoretically, be generated into valid VHDL code.
+        /// As of now, a full system info will contain the input and output names,
+        /// and the values for every output, in order. It's a JSON-serializable object, whose
+        /// format is described throughout the code.
+        /// TODO: We should probably make sure that CurrentSystem is set to null every time
+        /// the input/output table is modified, so that the CurrentSystem always matches
+        /// the one displayed.
+        /// </summary>
+        dynamic CurrentSystem
+        {
+            get;
+            set;
+        }
+
         public CombinationalCircuitForm()
         {
             InitializeComponent();
@@ -235,6 +253,15 @@ namespace BooleDeustoTwo
             ttf.LoadSystem(sys);
 
             ttf.ShowDialog();
+
+
+            // Check whether the outputs are now set, so that we can update the system accordingly.
+            if (ttf.OutputValues != null)
+            {
+                // We update the system
+                sys["outputValues"] = ttf.OutputValues;
+                CurrentSystem = sys;
+            }
         }
 
     }
