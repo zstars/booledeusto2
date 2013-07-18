@@ -12,6 +12,21 @@ namespace BooleDeustoTwo
 {
     public partial class CompleteTruthTableForm : Form
     {
+
+        /// <summary>
+        /// This property will contain the result of the truth table dialog. That is, 
+        /// a list of every specified output. The list contains the value of each output
+        /// in order. From left to right, and from top to bottom. The value can be
+        /// X, 1, or 0. It may be null if the values were not set. 
+        /// It is noteworthy that no values can be empty. 
+        /// </summary>
+        public List<char> OutputValues
+        {
+            get;
+            private set;
+        }
+
+
         public CompleteTruthTableForm()
         {
             InitializeComponent();
@@ -158,5 +173,36 @@ namespace BooleDeustoTwo
                     break;
             }
         }
-    }
-}
+
+        private void cancelButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void okButton_Click(object sender, EventArgs e)
+        {
+            // Extract the value of every cell, in order.
+            OutputValues = new List<char>();
+            foreach (DataGridViewRow row in this.outputsGrid.Rows)
+            {
+                foreach (DataGridViewCell cell in row.Cells)
+                {
+                    var val = cell.Value.ToString();
+
+                    // We need to make sure that there are no empty variables.
+                    if (val == "")
+                    {
+                        MessageBox.Show("Some values for the outputs have not been filled. Please do so.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        OutputValues = null; // So that the partially filled list is not mistaken for a properly filled one.
+                        return;
+                    }
+
+                    OutputValues.Add(val[0]);
+                }
+            }
+
+            this.Close();
+        }
+
+    } //! class
+} //! namespace
