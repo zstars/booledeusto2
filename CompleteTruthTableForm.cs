@@ -30,6 +30,10 @@ namespace BooleDeustoTwo
             if (numcols == 0)
                 return;
 
+
+            // Populate input table. There will be one column for each input, and
+            // there will be (2^num_inputs) rows, because it must cover every possible
+            // combination.
             foreach (var input in sys["inputs"])
             {
                 int col = this.inputsGrid.Columns.Add(input, input);
@@ -53,11 +57,70 @@ namespace BooleDeustoTwo
                 this.inputsGrid.Rows.Add(rowvals);
             }
 
+
+            // Now we will populate the outputs table. It will initially be empty.
+            // The number of columns will be the same as the number of inputs, and the
+            // number of rows will of course be the same as the number of rows in the
+            // inputs table.
+            foreach (var output in sys["outputs"])
+            {
+                int col = this.outputsGrid.Columns.Add(output, output);
+                this.outputsGrid.Columns[col].SortMode = DataGridViewColumnSortMode.NotSortable;
+            }
+
+            this.outputsGrid.Rows.Add(numrows);
         }
 
         private void CompleteTruthTableForm_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void anyButton_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow row in this.outputsGrid.Rows)
+            {
+                foreach (DataGridViewCell cell in row.Cells)
+                {
+                    if (cell.Value.ToString() == "")
+                        cell.Value = "X";
+                }
+            }
+        }
+
+        private void zerosButton_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow row in this.outputsGrid.Rows)
+            {
+                foreach (DataGridViewCell cell in row.Cells)
+                {
+                    if (cell.Value.ToString() == "")
+                        cell.Value = "0";
+                }
+            }
+        }
+
+        private void onesButton_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow row in this.outputsGrid.Rows)
+            {
+                foreach (DataGridViewCell cell in row.Cells)
+                {
+                    if (cell.Value.ToString() == "")
+                        cell.Value = "1";
+                }
+            }
+        }
+
+        private void clearButton_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow row in this.outputsGrid.Rows)
+            {
+                foreach (DataGridViewCell cell in row.Cells)
+                {
+                    cell.Value = "";
+                }
+            }
         }
     }
 }

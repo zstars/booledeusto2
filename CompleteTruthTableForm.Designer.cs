@@ -36,6 +36,7 @@
             this.anyButton = new System.Windows.Forms.Button();
             this.zerosButton = new System.Windows.Forms.Button();
             this.onesButton = new System.Windows.Forms.Button();
+            this.clearButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.inputsGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.outputsGrid)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -59,6 +60,9 @@
             // 
             this.outputsGrid.AllowUserToAddRows = false;
             this.outputsGrid.AllowUserToDeleteRows = false;
+            this.outputsGrid.AllowUserToResizeColumns = false;
+            this.outputsGrid.AllowUserToResizeRows = false;
+            this.outputsGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.outputsGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.outputsGrid.Location = new System.Drawing.Point(595, 121);
             this.outputsGrid.Name = "outputsGrid";
@@ -86,6 +90,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.clearButton);
             this.groupBox1.Controls.Add(this.anyButton);
             this.groupBox1.Controls.Add(this.zerosButton);
             this.groupBox1.Controls.Add(this.onesButton);
@@ -98,12 +103,13 @@
             // 
             // anyButton
             // 
-            this.anyButton.Location = new System.Drawing.Point(6, 28);
+            this.anyButton.Location = new System.Drawing.Point(248, 28);
             this.anyButton.Name = "anyButton";
             this.anyButton.Size = new System.Drawing.Size(75, 23);
             this.anyButton.TabIndex = 2;
             this.anyButton.Text = "Any (X)";
             this.anyButton.UseVisualStyleBackColor = true;
+            this.anyButton.Click += new System.EventHandler(this.anyButton_Click);
             // 
             // zerosButton
             // 
@@ -113,6 +119,7 @@
             this.zerosButton.TabIndex = 1;
             this.zerosButton.Text = "Zeros";
             this.zerosButton.UseVisualStyleBackColor = true;
+            this.zerosButton.Click += new System.EventHandler(this.zerosButton_Click);
             // 
             // onesButton
             // 
@@ -122,6 +129,17 @@
             this.onesButton.TabIndex = 0;
             this.onesButton.Text = "Ones";
             this.onesButton.UseVisualStyleBackColor = true;
+            this.onesButton.Click += new System.EventHandler(this.onesButton_Click);
+            // 
+            // clearButton
+            // 
+            this.clearButton.Location = new System.Drawing.Point(6, 28);
+            this.clearButton.Name = "clearButton";
+            this.clearButton.Size = new System.Drawing.Size(75, 23);
+            this.clearButton.TabIndex = 3;
+            this.clearButton.Text = "Clear";
+            this.clearButton.UseVisualStyleBackColor = true;
+            this.clearButton.Click += new System.EventHandler(this.clearButton_Click);
             // 
             // CompleteTruthTableForm
             // 
@@ -155,5 +173,6 @@
         private System.Windows.Forms.Button anyButton;
         private System.Windows.Forms.Button zerosButton;
         private System.Windows.Forms.Button onesButton;
+        private System.Windows.Forms.Button clearButton;
     }
 }
