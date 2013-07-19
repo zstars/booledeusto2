@@ -156,6 +156,15 @@ namespace BooleDeustoTwo
             dynamic sys = SimpleJson.DeserializeObject(json);
 
             DeserializeSystem(sys);
+
+            // TODO: There is currently a major issue with this. The sys object isn't uniformly built, 
+            // as sometimes a Dictionary is used etc. The interface to check whether a key exists seems
+            // to be different. That issue will need to be solved before this can work properly.
+            //if (sys["outputValues"] != null)
+            //{
+            //    // If we're dealing with a full system, it becomes our new CurrentSystem.
+            //    CurrentSystem = sys;
+            //}
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)

@@ -19,8 +19,10 @@ namespace BooleDeustoTwo
         /// in order. From left to right, and from top to bottom. The value can be
         /// X, 1, or 0. It may be null if the values were not set. 
         /// It is noteworthy that no values can be empty. 
+        /// It is a list of strings rather than chars so that it can be serialized back and forth
+        /// into JSON more easily.
         /// </summary>
-        public List<char> OutputValues
+        public List<string> OutputValues
         {
             get;
             private set;
@@ -199,7 +201,7 @@ namespace BooleDeustoTwo
         private void okButton_Click(object sender, EventArgs e)
         {
             // Extract the value of every cell, in order.
-            OutputValues = new List<char>();
+            OutputValues = new List<string>();
             foreach (DataGridViewRow row in this.outputsGrid.Rows)
             {
                 foreach (DataGridViewCell cell in row.Cells)
@@ -214,7 +216,7 @@ namespace BooleDeustoTwo
                         return;
                     }
 
-                    OutputValues.Add(val[0]);
+                    OutputValues.Add(val);
                 }
             }
 
