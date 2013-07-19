@@ -103,7 +103,9 @@ namespace BooleDeustoTwo
             string file = sfd.FileName;
             if (file != null && file.Length > 0)
             {
-                dynamic sys = SerializeSystem();
+                // If the system is well-defined and up to date, then we use it. Otherwise we serialize the 
+                // currently displayed system on the GUI, which won't have values set for the outputs.
+                dynamic sys = CurrentSystem != null? CurrentSystem : SerializeSystem();
 
                 string json = SimpleJson.SerializeObject(sys);
 
@@ -238,6 +240,16 @@ namespace BooleDeustoTwo
             this.nameBox.Text = "Unnamed";
         }
 
+
+        /// <summary>
+        /// This is the method to call whenever the inputs or outputs were changed.
+        /// It means that the CurrentSystem is no longer up to date, and is thus cleared.
+        /// </summary>
+        private void onInputsOutputsChangeOccurred()
+        {
+            CurrentSystem = null;
+        }
+
         private void completeTruthTableButton_Click(object sender, EventArgs e)
         {
             CompleteTruthTableForm ttf = new CompleteTruthTableForm();
@@ -268,6 +280,18 @@ namespace BooleDeustoTwo
                 sys["outputValues"] = ttf.OutputValues;
                 CurrentSystem = sys;
             }
+        }
+
+        private void onCellValidated(object sender, DataGridViewCellEventArgs e)
+        {
+            // This event is probably thrown more often than we need for our purpose, but it should work fine,
+            // especially on an initial stage.
+
+            // We want to remove the CurrentSystem whenever something in the inputs or outputs has changed, because
+            // it means that whatever outputs were defined for the previous system, they no longer apply.
+            // Here we make sure that is indeed done. 
+
+            this.onInputsOutputsChangeOccurred();
         }
 
     }

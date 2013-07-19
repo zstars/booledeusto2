@@ -33,20 +33,20 @@
             this.tabs = new System.Windows.Forms.TabControl();
             this.systemPropertiesTab = new System.Windows.Forms.TabPage();
             this.outputsGrid = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.inputsGrid = new System.Windows.Forms.DataGridView();
+            this.nameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.outputsNumber = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
             this.test = new System.Windows.Forms.Button();
             this.inputsNumber = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
             this.operationsTab = new System.Windows.Forms.TabPage();
+            this.completeTruthTableButton = new System.Windows.Forms.Button();
             this.codeTab = new System.Windows.Forms.TabPage();
             this.loadButton = new System.Windows.Forms.Button();
             this.saveButton = new System.Windows.Forms.Button();
             this.exitButton = new System.Windows.Forms.Button();
-            this.completeTruthTableButton = new System.Windows.Forms.Button();
-            this.nameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabs.SuspendLayout();
             this.systemPropertiesTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.outputsGrid)).BeginInit();
@@ -114,6 +114,13 @@
             this.outputsGrid.Size = new System.Drawing.Size(259, 410);
             this.outputsGrid.TabIndex = 13;
             // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.HeaderText = "Name";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dataGridViewTextBoxColumn1.Width = 200;
+            // 
             // inputsGrid
             // 
             this.inputsGrid.AllowUserToAddRows = false;
@@ -128,6 +135,14 @@
             this.inputsGrid.Size = new System.Drawing.Size(259, 410);
             this.inputsGrid.TabIndex = 12;
             this.inputsGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            this.inputsGrid.CellValidated += new System.Windows.Forms.DataGridViewCellEventHandler(this.onCellValidated);
+            // 
+            // nameColumn
+            // 
+            this.nameColumn.HeaderText = "Name";
+            this.nameColumn.Name = "nameColumn";
+            this.nameColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.nameColumn.Width = 200;
             // 
             // outputsNumber
             // 
@@ -184,6 +199,16 @@
             this.operationsTab.Text = "Operations";
             this.operationsTab.UseVisualStyleBackColor = true;
             // 
+            // completeTruthTableButton
+            // 
+            this.completeTruthTableButton.Location = new System.Drawing.Point(281, 225);
+            this.completeTruthTableButton.Name = "completeTruthTableButton";
+            this.completeTruthTableButton.Size = new System.Drawing.Size(130, 40);
+            this.completeTruthTableButton.TabIndex = 0;
+            this.completeTruthTableButton.Text = "Complete Truth Table";
+            this.completeTruthTableButton.UseVisualStyleBackColor = true;
+            this.completeTruthTableButton.Click += new System.EventHandler(this.completeTruthTableButton_Click);
+            // 
             // codeTab
             // 
             this.codeTab.Location = new System.Drawing.Point(4, 22);
@@ -222,30 +247,6 @@
             this.exitButton.Text = "Exit";
             this.exitButton.UseVisualStyleBackColor = true;
             this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
-            // 
-            // completeTruthTableButton
-            // 
-            this.completeTruthTableButton.Location = new System.Drawing.Point(281, 225);
-            this.completeTruthTableButton.Name = "completeTruthTableButton";
-            this.completeTruthTableButton.Size = new System.Drawing.Size(130, 40);
-            this.completeTruthTableButton.TabIndex = 0;
-            this.completeTruthTableButton.Text = "Complete Truth Table";
-            this.completeTruthTableButton.UseVisualStyleBackColor = true;
-            this.completeTruthTableButton.Click += new System.EventHandler(this.completeTruthTableButton_Click);
-            // 
-            // nameColumn
-            // 
-            this.nameColumn.HeaderText = "Name";
-            this.nameColumn.Name = "nameColumn";
-            this.nameColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.nameColumn.Width = 200;
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.HeaderText = "Name";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.dataGridViewTextBoxColumn1.Width = 200;
             // 
             // CombinationalCircuitForm
             // 
