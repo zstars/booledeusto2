@@ -93,6 +93,23 @@ namespace BooleDeustoTwo
                     cell.Value = "";
                 }
             }
+
+            // If our pseudo-JSON object contains already defined outputs, we load them.
+            // Note that we could have skipped the initialization steps and it would be 
+            // faster, but for now this will do as it is in a way tidier.
+            if(sys.ContainsKey("outputValues"))
+            {
+                var outputValues = sys["outputValues"];
+                int i = 0;
+                foreach (DataGridViewRow row in this.outputsGrid.Rows)
+                {
+                    foreach (DataGridViewCell cell in row.Cells)
+                    {
+                        cell.Value = outputValues[i];
+                        i++;
+                    }
+                }
+            }
         }
 
         private void CompleteTruthTableForm_Load(object sender, EventArgs e)

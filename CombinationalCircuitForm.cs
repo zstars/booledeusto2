@@ -242,7 +242,13 @@ namespace BooleDeustoTwo
         {
             CompleteTruthTableForm ttf = new CompleteTruthTableForm();
 
-            dynamic sys = SerializeSystem();
+            dynamic sys;
+            
+            // If we have the system already, we do not need to serialize it from the GUI.
+            if(CurrentSystem != null)
+                sys = CurrentSystem;
+            else
+                sys = SerializeSystem();
 
             if (sys["inputs"].Count == 0)
             {
