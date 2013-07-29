@@ -22,6 +22,8 @@ namespace BooleDeustoTwo
         /// As of now, a full system info will contain the input and output names,
         /// and the values for every output, in order. It's a JSON-serializable object, whose
         /// format is described throughout the code.
+        /// It should contain items only. That is, JsonObject instead of dictionaries, and 
+        /// JsonArrays instead of lists.
         /// TODO: We should probably make sure that CurrentSystem is set to null every time
         /// the input/output table is modified, so that the CurrentSystem always matches
         /// the one displayed.
@@ -50,7 +52,7 @@ namespace BooleDeustoTwo
         /// <returns>Dynamic object with data to describe the system</returns>
         private dynamic SerializeSystem()
         {
-            dynamic sys = new Dictionary<string, object>();
+            dynamic sys = new JsonObject();
             sys["name"] = nameBox.Text;
 
             var inputs = new List<string>();
@@ -68,7 +70,7 @@ namespace BooleDeustoTwo
                 i++;
             }
 
-            var outputs = new List<string>();
+            var outputs = new JsonArray();
             i = 1;
             foreach (DataGridViewRow row in outputsGrid.Rows)
             {
@@ -154,17 +156,18 @@ namespace BooleDeustoTwo
             string json = File.ReadAllText(file);
 
             dynamic sys = SimpleJson.DeserializeObject(json);
+           
 
             DeserializeSystem(sys);
 
             // TODO: There is currently a major issue with this. The sys object isn't uniformly built, 
             // as sometimes a Dictionary is used etc. The interface to check whether a key exists seems
             // to be different. That issue will need to be solved before this can work properly.
-            //if (sys["outputValues"] != null)
-            //{
-            //    // If we're dealing with a full system, it becomes our new CurrentSystem.
-            //    CurrentSystem = sys;
-            //}
+            if (sys.ContainsKey("outputValues"))
+            {
+                // If we're dealing with a full system, it becomes our new CurrentSystem.
+                CurrentSystem = sys;
+            }
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -291,7 +294,8 @@ namespace BooleDeustoTwo
             }
         }
 
-        private void onCellValidated(object sender, DataGridViewCellEventArgs e)
+
+        private void OnCellValidated(object sender, DataGridViewCellEventArgs e)
         {
             // This event is probably thrown more often than we need for our purpose, but it should work fine,
             // especially on an initial stage.

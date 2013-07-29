@@ -113,6 +113,7 @@
             this.outputsGrid.RowHeadersWidth = 55;
             this.outputsGrid.Size = new System.Drawing.Size(259, 410);
             this.outputsGrid.TabIndex = 13;
+            this.outputsGrid.CellValidated += new System.Windows.Forms.DataGridViewCellEventHandler(this.OnCellValidated);
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -135,7 +136,7 @@
             this.inputsGrid.Size = new System.Drawing.Size(259, 410);
             this.inputsGrid.TabIndex = 12;
             this.inputsGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
-            this.inputsGrid.CellValidated += new System.Windows.Forms.DataGridViewCellEventHandler(this.onCellValidated);
+            this.inputsGrid.CellValidated += new System.Windows.Forms.DataGridViewCellEventHandler(this.OnCellValidated);
             // 
             // nameColumn
             // 
