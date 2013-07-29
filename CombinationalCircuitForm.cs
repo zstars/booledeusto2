@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Noesis.Javascript;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -175,9 +176,37 @@ namespace BooleDeustoTwo
 
         }
 
+        class SystemConsole
+        {
+            public void Print(string str)
+            {
+                Console.WriteLine(str);
+            }
+        }
+
         private void test_Click(object sender, EventArgs e)
         {
-            inputsGrid.Rows[0].HeaderCell.Value = "A";
+            // Initialize a context
+            JavascriptContext context = new JavascriptContext();
+
+            // Setting external parameters for the context
+            context.SetParameter("console", new SystemConsole());
+            context.SetParameter("message", "Hello World !");
+            context.SetParameter("number", 1);
+
+            // Script
+            string script = @"
+                var i;
+                for (i = 0; i < 5; i++)
+                    console.Print(message + ' (' + i + ')');
+                number += i;
+            ";
+
+            // Running the script
+            context.Run(script);
+
+            // Getting a parameter
+            Console.WriteLine("number: " + context.GetParameter("number"));
         }
 
         private void systemPropertiesTab_Click(object sender, EventArgs e)
