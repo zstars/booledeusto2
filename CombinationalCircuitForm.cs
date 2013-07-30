@@ -336,5 +336,32 @@ namespace BooleDeustoTwo
             this.onInputsOutputsChangeOccurred();
         }
 
+        private void sopButton_Click(object sender, EventArgs e)
+        {
+            // Initialize a context
+            JavascriptContext context = new JavascriptContext();
+
+            // Load Source
+            string source = File.ReadAllText("../../js/quine/src/qm.js");
+            context.Run(source);
+
+            // Setting external parameters for the context
+            context.SetParameter("console", new SystemConsole());
+
+            // Script
+            string script = @"
+                var userInput = { inputs: 'A,B', minterms: '0,1,2' };
+                result = qm.getLeastPrimeImplicants( userInput, 'boolean' );
+            ";
+
+            // Running the script
+            context.Run(script);
+
+            MessageBox.Show(context.GetParameter("result").ToString());
+
+            // Getting a parameter
+            Console.WriteLine("number: " + context.GetParameter("number"));
+        }
+
     }
 }

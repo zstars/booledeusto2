@@ -47,6 +47,7 @@
             this.loadButton = new System.Windows.Forms.Button();
             this.saveButton = new System.Windows.Forms.Button();
             this.exitButton = new System.Windows.Forms.Button();
+            this.sopButton = new System.Windows.Forms.Button();
             this.tabs.SuspendLayout();
             this.systemPropertiesTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.outputsGrid)).BeginInit();
@@ -191,6 +192,7 @@
             // 
             // operationsTab
             // 
+            this.operationsTab.Controls.Add(this.sopButton);
             this.operationsTab.Controls.Add(this.completeTruthTableButton);
             this.operationsTab.Location = new System.Drawing.Point(4, 22);
             this.operationsTab.Name = "operationsTab";
@@ -202,7 +204,7 @@
             // 
             // completeTruthTableButton
             // 
-            this.completeTruthTableButton.Location = new System.Drawing.Point(281, 225);
+            this.completeTruthTableButton.Location = new System.Drawing.Point(176, 227);
             this.completeTruthTableButton.Name = "completeTruthTableButton";
             this.completeTruthTableButton.Size = new System.Drawing.Size(130, 40);
             this.completeTruthTableButton.TabIndex = 0;
@@ -248,6 +250,16 @@
             this.exitButton.Text = "Exit";
             this.exitButton.UseVisualStyleBackColor = true;
             this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
+            // 
+            // sopButton
+            // 
+            this.sopButton.Location = new System.Drawing.Point(404, 227);
+            this.sopButton.Name = "sopButton";
+            this.sopButton.Size = new System.Drawing.Size(130, 40);
+            this.sopButton.TabIndex = 1;
+            this.sopButton.Text = "SOP";
+            this.sopButton.UseVisualStyleBackColor = true;
+            this.sopButton.Click += new System.EventHandler(this.sopButton_Click);
             // 
             // CombinationalCircuitForm
             // 
@@ -299,5 +311,6 @@
         private System.Windows.Forms.Button completeTruthTableButton;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn nameColumn;
+        private System.Windows.Forms.Button sopButton;
     }
 }
