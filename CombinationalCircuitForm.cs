@@ -336,6 +336,29 @@ namespace BooleDeustoTwo
             this.onInputsOutputsChangeOccurred();
         }
 
+        /// <summary>
+        /// Extracts a column of outputs from the CurrentSystem.
+        /// </summary>
+        /// <param name="col">Column to extract. For instance, 0 to extract the first outputs column.</param>
+        /// <returns></returns>
+        private List<String> ExtractOutputs(int col)
+        {
+            // Extracts column of outputs
+            var outputs = new List<String>();
+
+            int outputNum = col;
+            int i = 0;
+            int n = 0;
+            foreach (string output in CurrentSystem["outputValues"])
+            {
+                if (i % CurrentSystem["outputs"].Count == outputNum)
+                    outputs.Add(output);
+                i++;
+            }
+
+            return outputs;
+        }
+
         private void sopButton_Click(object sender, EventArgs e)
         {
             // Initialize a context
@@ -348,11 +371,33 @@ namespace BooleDeustoTwo
             // Setting external parameters for the context
             context.SetParameter("console", new SystemConsole());
 
+            // Convert inputs to a comma-separated string
+            string inputsStr = string.Join(",", CurrentSystem["inputs"]);
+
+
+            var minterms = new List<string>();
+            var dontNeeds = new List<string>();
+
+            // Generate minterms and dontNeeds list
+            int i = 0;
+            foreach (string output in ExtractOutputs(0))
+            {
+                if (output == "1")
+                    minterms.Add(i.ToString());
+                else if (output == "X")
+                    dontNeeds.Add(i.ToString());
+                i++;
+            }
+
+            string mintermsStr = string.Join(",", minterms);
+            string dontNeedsStr = string.Join(",", dontNeeds);
+
+
             // Script
-            string script = @"
-                var userInput = { inputs: 'A,B', minterms: '0,1,2' };
-                result = qm.getLeastPrimeImplicants( userInput, 'boolean' );
-            ";
+            string script = string.Format(@"
+                var userInput = {{ inputs: '{0}', minterms: '{1}', dontNeeds: '{2}' }};
+                result = qm.getLeastPrimeImplicants( userInput );
+            ", inputsStr, mintermsStr, dontNeedsStr);
 
             // Running the script
             context.Run(script);
