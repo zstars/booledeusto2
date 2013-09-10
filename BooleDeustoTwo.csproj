@@ -53,6 +53,7 @@
     <Compile Include="CombinationalCircuitForm.Designer.cs">
       <DependentUpon>CombinationalCircuitForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="FastTemplate.cs" />
     <Compile Include="ModeSelectionForm.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -470,6 +470,54 @@ namespace BooleDeustoTwo
 
 
             var sops = GenerateSOPs("vhdl");
+
+            // Build the code for the equations.
+            var eqs_array = new List<string>();
+            int i = 0;
+            foreach(string s in sops)
+            {
+                var sb = new StringBuilder();
+
+                sb.Append("    ");
+                sb.Append(CurrentSystem["outputs"][i++]);
+                sb.Append(" <= ");
+                sb.Append(s);
+                sb.Append(";");
+
+                eqs_array.Add(sb.ToString());
+            }
+
+            // Merge every equation into a single string.
+            string equations = string.Join("\r\n", eqs_array);
+
+
+            // Load the template.
+            string template = File.ReadAllText("..\\..\\templates\\weblab_combinational.ftemplate");
+            if(template == null || template.Length == 0)
+            {
+                MessageBox.Show("Could not find weblab_combinational.ftemplate Template file", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // Replace the equations.
+            FastTemplate ft = new FastTemplate();
+            string code = ft.Replace(template, new Dictionary<string,string>() { {"equations", equations} });
+
+            // Show the save-file dialog.
+            SaveFileDialog sf = new SaveFileDialog();
+            sf.AddExtension = true;
+            sf.Filter = "VHDL file | *.vhd";
+            sf.ShowDialog();
+
+            string file = sf.FileName;
+
+          
+            
+            if(file != null && file.Length > 0)
+            {
+                // Save the file
+                File.WriteAllText(file, code);
+            }
         }
 
     }
