@@ -49,6 +49,7 @@
             this.saveButton = new System.Windows.Forms.Button();
             this.exitButton = new System.Windows.Forms.Button();
             this.weblabVHDL = new System.Windows.Forms.Button();
+            this.openWeblab = new System.Windows.Forms.Button();
             this.tabs.SuspendLayout();
             this.systemPropertiesTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.outputsGrid)).BeginInit();
@@ -226,6 +227,7 @@
             // 
             // codeTab
             // 
+            this.codeTab.Controls.Add(this.openWeblab);
             this.codeTab.Controls.Add(this.weblabVHDL);
             this.codeTab.Location = new System.Drawing.Point(4, 22);
             this.codeTab.Name = "codeTab";
@@ -273,6 +275,16 @@
             this.weblabVHDL.Text = "WebLab VHDL";
             this.weblabVHDL.UseVisualStyleBackColor = true;
             this.weblabVHDL.Click += new System.EventHandler(this.weblabVHDL_Click);
+            // 
+            // openWeblab
+            // 
+            this.openWeblab.Location = new System.Drawing.Point(296, 169);
+            this.openWeblab.Name = "openWeblab";
+            this.openWeblab.Size = new System.Drawing.Size(130, 40);
+            this.openWeblab.TabIndex = 3;
+            this.openWeblab.Text = "Open Weblab";
+            this.openWeblab.UseVisualStyleBackColor = true;
+            this.openWeblab.Click += new System.EventHandler(this.openWeblab_Click);
             // 
             // CombinationalCircuitForm
             // 
@@ -327,5 +339,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn nameColumn;
         private System.Windows.Forms.Button sopButton;
         private System.Windows.Forms.Button weblabVHDL;
+        private System.Windows.Forms.Button openWeblab;
     }
 }

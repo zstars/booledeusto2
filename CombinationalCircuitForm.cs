@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -518,6 +519,24 @@ namespace BooleDeustoTwo
                 // Save the file
                 File.WriteAllText(file, code);
             }
+        }
+
+        private void openWeblab_Click(object sender, EventArgs e)
+        {
+            // Ensure that our system is fully defined. Otherwise we
+            // can't generate SOP expressions or code.
+            if (CurrentSystem == null || !CurrentSystem.ContainsKey("outputValues"))
+            {
+                MessageBox.Show("You need to define the Truth Table before you can generate the code", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // Simulate a click so that we force a code generation.
+            // TODO: Eventually we should only generate code if it is not generated already.
+            weblabVHDL_Click(sender, e);
+
+            // Open Weblab
+            Process.Start("https://www.weblab.deusto.es/weblab/client/#page=experiment&exp.category=FPGA%20experiments&exp.name=fpga-free");
         }
 
     }

@@ -176,7 +176,7 @@ namespace BooleDeustoTwo
         private void onCellMouseUp(object sender, DataGridViewCellMouseEventArgs e)
         {
             // Do nothing if the user clicked the header-row.
-            if (e.ColumnIndex == -1)
+            if (e.ColumnIndex == -1 || e.RowIndex == -1)
                 return;
 
             DataGridViewCell cell = this.outputsGrid[e.ColumnIndex, e.RowIndex];
