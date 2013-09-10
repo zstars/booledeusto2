@@ -42,12 +42,13 @@
             this.inputsNumber = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
             this.operationsTab = new System.Windows.Forms.TabPage();
+            this.sopButton = new System.Windows.Forms.Button();
             this.completeTruthTableButton = new System.Windows.Forms.Button();
             this.codeTab = new System.Windows.Forms.TabPage();
             this.loadButton = new System.Windows.Forms.Button();
             this.saveButton = new System.Windows.Forms.Button();
             this.exitButton = new System.Windows.Forms.Button();
-            this.sopButton = new System.Windows.Forms.Button();
+            this.weblabVHDL = new System.Windows.Forms.Button();
             this.tabs.SuspendLayout();
             this.systemPropertiesTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.outputsGrid)).BeginInit();
@@ -55,6 +56,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.outputsNumber)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.inputsNumber)).BeginInit();
             this.operationsTab.SuspendLayout();
+            this.codeTab.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -202,6 +204,16 @@
             this.operationsTab.Text = "Operations";
             this.operationsTab.UseVisualStyleBackColor = true;
             // 
+            // sopButton
+            // 
+            this.sopButton.Location = new System.Drawing.Point(404, 227);
+            this.sopButton.Name = "sopButton";
+            this.sopButton.Size = new System.Drawing.Size(130, 40);
+            this.sopButton.TabIndex = 1;
+            this.sopButton.Text = "SOP";
+            this.sopButton.UseVisualStyleBackColor = true;
+            this.sopButton.Click += new System.EventHandler(this.sopButton_Click);
+            // 
             // completeTruthTableButton
             // 
             this.completeTruthTableButton.Location = new System.Drawing.Point(176, 227);
@@ -214,6 +226,7 @@
             // 
             // codeTab
             // 
+            this.codeTab.Controls.Add(this.weblabVHDL);
             this.codeTab.Location = new System.Drawing.Point(4, 22);
             this.codeTab.Name = "codeTab";
             this.codeTab.Size = new System.Drawing.Size(726, 495);
@@ -251,15 +264,15 @@
             this.exitButton.UseVisualStyleBackColor = true;
             this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
             // 
-            // sopButton
+            // weblabVHDL
             // 
-            this.sopButton.Location = new System.Drawing.Point(404, 227);
-            this.sopButton.Name = "sopButton";
-            this.sopButton.Size = new System.Drawing.Size(130, 40);
-            this.sopButton.TabIndex = 1;
-            this.sopButton.Text = "SOP";
-            this.sopButton.UseVisualStyleBackColor = true;
-            this.sopButton.Click += new System.EventHandler(this.sopButton_Click);
+            this.weblabVHDL.Location = new System.Drawing.Point(296, 239);
+            this.weblabVHDL.Name = "weblabVHDL";
+            this.weblabVHDL.Size = new System.Drawing.Size(130, 40);
+            this.weblabVHDL.TabIndex = 2;
+            this.weblabVHDL.Text = "WebLab VHDL";
+            this.weblabVHDL.UseVisualStyleBackColor = true;
+            this.weblabVHDL.Click += new System.EventHandler(this.weblabVHDL_Click);
             // 
             // CombinationalCircuitForm
             // 
@@ -285,6 +298,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.outputsNumber)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.inputsNumber)).EndInit();
             this.operationsTab.ResumeLayout(false);
+            this.codeTab.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -312,5 +326,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn nameColumn;
         private System.Windows.Forms.Button sopButton;
+        private System.Windows.Forms.Button weblabVHDL;
     }
 }

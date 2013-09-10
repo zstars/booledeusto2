@@ -362,15 +362,17 @@ namespace BooleDeustoTwo
             return outputs;
         }
 
-        private void sopButton_Click(object sender, EventArgs e)
+
+        private List<string> GenerateSOPs(string format = "booleanAlgebra")
         {
+            // To store the sops we will generate.
+            List<string> sops = new List<string>();
+
             // Ensure that our system is fully defined. Otherwise we
             // can't generate SOP expressions.
             if (CurrentSystem == null || !CurrentSystem.ContainsKey("outputValues"))
-            {
-                MessageBox.Show("You need to define the Truth Table before you can generate the SOP expressions", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
+                return sops;
+
 
             // Initialize a context
             JavascriptContext context = new JavascriptContext();
@@ -387,9 +389,6 @@ namespace BooleDeustoTwo
 
             var minterms = new List<string>();
             var dontNeeds = new List<string>();
-
-            // To store the list of SOPs we will obtain
-            var sops = new List<string>();
 
 
             // We will need to obtain a boolean equation for each output.
@@ -413,8 +412,8 @@ namespace BooleDeustoTwo
                 // Script
                 string script = string.Format(@"
                     var userInput = {{ inputs: '{0}', minterms: '{1}', dontNeeds: '{2}' }};
-                    result = qm.getLeastPrimeImplicants( userInput );
-                ", inputsStr, mintermsStr, dontNeedsStr);
+                    result = qm.getLeastPrimeImplicants( userInput, '{3}' );
+                ", inputsStr, mintermsStr, dontNeedsStr, format);
 
                 // Running the script
                 context.Run(script);
@@ -422,8 +421,8 @@ namespace BooleDeustoTwo
                 // Extract the resulting equation
                 string eq = context.GetParameter("result").ToString();
 
-                // Add the SOP we have just obtained to our list of SOPs. Also, preppend the outputName.
-                sops.Add("" + CurrentSystem["outputs"][outputNum] + ": " + eq);
+                // Add the SOP we have just obtained to our list of SOPs.
+                sops.Add(eq);
 
                 //MessageBox.Show(eq);
 
@@ -431,11 +430,46 @@ namespace BooleDeustoTwo
                 Console.WriteLine("number: " + context.GetParameter("number"));
             }
 
+            return sops;
+        }
+
+        private void sopButton_Click(object sender, EventArgs e)
+        {
+            // Ensure that our system is fully defined. Otherwise we
+            // can't generate SOP expressions.
+            if (CurrentSystem == null || !CurrentSystem.ContainsKey("outputValues"))
+            {
+                MessageBox.Show("You need to define the Truth Table before you can generate the SOP expressions", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // Generate the SOPs.
+            var sops = GenerateSOPs();
+
+            // Preppend the input name to the SOPs.
+            var prettySops = new List<string>();
+            int i = 0;
+            foreach (string s in sops)
+                prettySops.Add("" + CurrentSystem["outputs"][i++] + ": " + s);
 
             // Open the SOP form
             SOPForm sop = new SOPForm();
-            sop.SOPs = sops;
+            sop.SOPs = prettySops;
             sop.ShowDialog();
+        }
+
+        private void weblabVHDL_Click(object sender, EventArgs e)
+        {
+            // Ensure that our system is fully defined. Otherwise we
+            // can't generate SOP expressions or code.
+            if (CurrentSystem == null || !CurrentSystem.ContainsKey("outputValues"))
+            {
+                MessageBox.Show("You need to define the Truth Table before you can generate the code", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+
+            var sops = GenerateSOPs("vhdl");
         }
 
     }
