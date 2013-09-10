@@ -10,6 +10,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+// TODO: There is a bug where changing the name of the combinational system erases the CurrentSystem.
+// The system should probably only be erased when the number of inputs or outputs changes.
+
 
 namespace BooleDeustoTwo
 {
@@ -361,10 +364,18 @@ namespace BooleDeustoTwo
 
         private void sopButton_Click(object sender, EventArgs e)
         {
+            // Ensure that our system is fully defined. Otherwise we
+            // can't generate SOP expressions.
+            if (CurrentSystem == null || !CurrentSystem.ContainsKey("outputValues"))
+            {
+                MessageBox.Show("You need to define the Truth Table before you can generate the SOP expressions", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             // Initialize a context
             JavascriptContext context = new JavascriptContext();
 
-            // Load Source
+            // Load Source of the QM algorithm script.
             string source = File.ReadAllText("../../js/quine/src/qm.js");
             context.Run(source);
 
@@ -374,38 +385,57 @@ namespace BooleDeustoTwo
             // Convert inputs to a comma-separated string
             string inputsStr = string.Join(",", CurrentSystem["inputs"]);
 
-
             var minterms = new List<string>();
             var dontNeeds = new List<string>();
 
-            // Generate minterms and dontNeeds list
-            int i = 0;
-            foreach (string output in ExtractOutputs(0))
+            // To store the list of SOPs we will obtain
+            var sops = new List<string>();
+
+
+            // We will need to obtain a boolean equation for each output.
+            for (int outputNum = 0; outputNum < CurrentSystem["outputs"].Count; outputNum++)
             {
-                if (output == "1")
-                    minterms.Add(i.ToString());
-                else if (output == "X")
-                    dontNeeds.Add(i.ToString());
-                i++;
+                // Generate minterms and dontNeeds list
+                int i = 0;
+                foreach (string output in ExtractOutputs(outputNum))
+                {
+                    if (output == "1")
+                        minterms.Add(i.ToString());
+                    else if (output == "X")
+                        dontNeeds.Add(i.ToString());
+                    i++;
+                }
+
+                string mintermsStr = string.Join(",", minterms);
+                string dontNeedsStr = string.Join(",", dontNeeds);
+
+
+                // Script
+                string script = string.Format(@"
+                    var userInput = {{ inputs: '{0}', minterms: '{1}', dontNeeds: '{2}' }};
+                    result = qm.getLeastPrimeImplicants( userInput );
+                ", inputsStr, mintermsStr, dontNeedsStr);
+
+                // Running the script
+                context.Run(script);
+
+                // Extract the resulting equation
+                string eq = context.GetParameter("result").ToString();
+
+                // Add the SOP we have just obtained to our list of SOPs. Also, preppend the outputName.
+                sops.Add("" + CurrentSystem["outputs"][outputNum] + ": " + eq);
+
+                //MessageBox.Show(eq);
+
+                // Getting a parameter
+                Console.WriteLine("number: " + context.GetParameter("number"));
             }
 
-            string mintermsStr = string.Join(",", minterms);
-            string dontNeedsStr = string.Join(",", dontNeeds);
 
-
-            // Script
-            string script = string.Format(@"
-                var userInput = {{ inputs: '{0}', minterms: '{1}', dontNeeds: '{2}' }};
-                result = qm.getLeastPrimeImplicants( userInput );
-            ", inputsStr, mintermsStr, dontNeedsStr);
-
-            // Running the script
-            context.Run(script);
-
-            MessageBox.Show(context.GetParameter("result").ToString());
-
-            // Getting a parameter
-            Console.WriteLine("number: " + context.GetParameter("number"));
+            // Open the SOP form
+            SOPForm sop = new SOPForm();
+            sop.SOPs = sops;
+            sop.ShowDialog();
         }
 
     }
